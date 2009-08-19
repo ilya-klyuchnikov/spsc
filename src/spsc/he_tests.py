@@ -7,27 +7,27 @@ Created on Aug 17, 2009
 import unittest
 
 from sll_language import *
-from sll_parser import exp, program
+from sll_parser import pExp, pProg
 from he import embeddedIn, aVarIsUnderAttack, he
 
 class HE_Tests(unittest.TestCase):
 
     def heTrue(self, input1, input2):
-        e1 = exp.parseString(input1, True)[0]
-        e2 = exp.parseString(input2, True)[0]
+        e1 = pExp(input1)
+        e2 = pExp(input2)
         self.assertTrue(he(e1, e2))
 
     def heFalse(self, input1, input2):
-        e1 = exp.parseString(input1, True)[0]
-        e2 = exp.parseString(input2, True)[0]
+        e1 = pExp(input1)
+        e2 = pExp(input2)
         self.assertFalse(he(e1, e2))
 
     def varAttackTrue(self, input):
-        e = exp.parseString(input, True)[0]
+        e = pExp(input)
         self.assertTrue(aVarIsUnderAttack(e))
 
     def varAttackFalse(self, input):
-        e = exp.parseString(input, True)[0]
+        e = pExp(input)
         self.assertFalse(aVarIsUnderAttack(e))
 
     def testVarAttack(self):

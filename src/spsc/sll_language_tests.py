@@ -37,7 +37,23 @@ class SLanguage_Tests(unittest.TestCase):
                          Program([GRule("g", "C", [], [], Ctr("A",[])),
                                  GRule("g1", "C", [], ["x"], Ctr("A",[])),
                                  GRule("g2", "C", ["x"], [], Ctr("A",[]))]))
+    def eqCheck(self, e1, e2):
+        self.assertTrue(e1 == e2)
 
+    def neCheck(self, e1, e2):
+        self.assertTrue(e1 != e2)
+
+    def testEq(self):
+        self.eqCheck(Var("x"), Var("x"))
+        self.neCheck(Var("x"), Var("y"))
+        self.eqCheck(Ctr("A", []), Ctr("A", []))
+        self.neCheck(Ctr("A", []), Ctr("B", []))
+        self.eqCheck([], [])
+        self.eqCheck([Var("x")], [Var("x")])
+        self.neCheck([Var("x")], [Var("y")])
+        self.neCheck([Var("x")], [Var("x"), Var("z")])
+        self.eqCheck(Ctr("A", [Var("x")]), Ctr("A", [Var("x")]))
+        self.neCheck(Ctr("A", [Var("x")]), Ctr("A", [Var("y")]))
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

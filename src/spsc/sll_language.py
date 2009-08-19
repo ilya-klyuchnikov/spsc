@@ -5,14 +5,33 @@ Created on Aug 14, 2009
 '''
 
 import string
+import copy
 
-class Exp(object) : pass
+class Exp(object):
+    def __ne__(self, other):
+        result = self.__eq__(other)
+        if result is NotImplemented:
+            return result
+        return not result
+    def isFGCall(self):
+        return False
 
 class Var(Exp):
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, vname):
+        self.vname = vname
     def __str__(self):
-        return self.name
+        return self.vname
+    def __eq__(self, other):
+        if not isinstance(other, Exp):
+            return NotImplemented
+        if isinstance(other, Var):
+            return self.vname == other.vname
+        else:
+            return False
+    def applySubst(self, subst):
+        return subst.get(self.vname, self)
+    def vars(self):
+        return [self.vname]
 
 #  #  data CKind = Ctr | FCall | GCall
 #  #    deriving (Eq)
@@ -22,21 +41,43 @@ class Call(Exp):
         self.ckind = ckind
         self.name = name
         self.args = args
-    def hasTheSameFunctorAs(self, other):
-        return (self.__class__ is other.__class__ 
-#                and self.ckind == other.ckind 
-                and self.name == other.name)
-    
     def __str__(self):
         args_s = ",".join(["%s" % e for e in self.args])
         return "%s(%s)" % (self.name, args_s)
+    def __eq__(self, other):
+        if not isinstance(other, Exp):
+            return NotImplemented
+        if self.__class__ is other.__class__:
+            return self.name == other.name and self.args == other.args
+        else:
+            return False
+    def hasTheSameFunctorAs(self, other):
+        return (self.__class__ is other.__class__ 
+                and self.name == other.name)
+    def applySubst(self, subst):
+        newCall = copy.copy(self)
+        newCall.args = [ e.applySubst(subst) for e in self.args]
+        return newCall
+    def vars(self):
+        '''
+        We don't use sets here, in order to preserve
+        the original order of variables in the expression.
+        (The order is preserved just for readability of
+        residual programs.)
+        '''
+        vs = []
+        for arg in self.args:
+            for v in arg.vars():
+                if v not in vs:
+                    vs.append(v)
+        return vs
 
 class Binding(object) :
-    def __init__(self, name, exp):
-        self.name = name
+    def __init__(self, vname, exp):
+        self.vname = vname
         self.exp = exp
     def __str__(self):
-        return "%s=%s" % (self.name, self.exp)
+        return "%s=%s" % (self.vname, self.exp)
 
 class Let(Exp):
     def __init__(self, body, bindings):
@@ -58,10 +99,14 @@ class Ctr(Call):
 class FCall(Call):
     def __init__(self, name, args):
         Call.__init__(self, "FCall", name, args)
+    def isFGCall(self):
+        return True
 
 class GCall(Call):
     def __init__(self, name, args):
         Call.__init__(self, "GCall", name, args)
+    def isFGCall(self):
+        return True
 
 class FRule(object):
     def __init__(self, name, params, body):
@@ -96,4 +141,3 @@ class Program(object):
         self.rules = rules
     def __str__(self):
         return "".join(["%s" % r for r in self.rules])
-   
