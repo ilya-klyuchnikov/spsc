@@ -1,4 +1,5 @@
-## Input code ##
+## Input code
+
 ```
 if(True, x, y) = x;
 if(False, x, y) = y;
@@ -12,12 +13,14 @@ and(x, y) = if(x, y, False);
 notOrNot(x, y) = not(or(not(x), not(y)));
 ```
 
-## Start function ##
+## Start function
+
 ```
 NotOrNot
 ```
 
-## Supercompiled code ##
+## Supercompiled code
+
 ```
 if1(True(), a) = if2(a);
 if1(False(), a) = False();
@@ -28,7 +31,7 @@ if2(True()) = True();
 notOrNot(a, b) = if1(a, b);
 ```
 
-## Notes ##
+## Notes
 
 Since the semantics of the language dealt with by SPSC is lazy,
 the source program may contain definitions of "control structures"

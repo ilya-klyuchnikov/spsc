@@ -1,6 +1,8 @@
-See also: SampleMemberFirstArg, SampleMemberSecondArg.
+See also: [SampleMemberFirstArg](SampleMemberFirstArg.md),
+[SampleMemberSecondArg](SampleMemberSecondArg.md).
 
-## Input code ##
+## Input code
+
 ```
 eq(Z, y) = eqZ(y);
 eq(S(x), y) = eqS(y, x);
@@ -18,12 +20,14 @@ memberEq(False, x, ys) = memberSel(ys, x);
 member(x, ys) = memberSel(ys, x);
 ```
 
-## Start function ##
+## Start function
+
 ```
 member
 ```
 
-## Supercompiled code ##
+## Supercompiled code
+
 ```
 memberEq1(Z(), a, b, c) = memberEq3(a, b, c);
 memberEq1(S(a), b, c, d) = memberEq2(b, a, c, d);
@@ -37,7 +41,7 @@ memberSel1(Cons(a, b), c) = memberEq1(c, a, c, b);
 member(a, b) = memberSel1(b, a);
 ```
 
-## Notes ##
+## Notes
 
 `member(x, list)` returns `True`, if `x` appears in the list `list`, and `False`
 otherwise.

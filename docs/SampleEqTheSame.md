@@ -1,6 +1,7 @@
-See also: SampleEq2.
+See also: [SampleEq2](SampleEq2.md).
 
-## Input code ##
+## Input code
+
 ```
 eq(Z, y) = eqZ(y);
 eq(S(x), y) = eqS(y, x);
@@ -14,12 +15,13 @@ eqS(S(y), x) = eq(x, y);
 eqxx(x) = eq(x, x);
 ```
 
-## Start function ##
+## Start function
+
 ```
 eqxx
 ```
 
-## Supercompiled code ##
+## Supercompiled code
 ```
 eq1(Z()) = True();
 eq1(S(a)) = eq1(a);
@@ -27,7 +29,7 @@ eq1(S(a)) = eq1(a);
 eqxx(a) = eq1(a);
 ```
 
-## Notes ##
+## Notes
 
 In this case, `False` is never returned by the function `eq1` produced by SPSC.
 Hence, SPSC has "proved the theorem" that "X=X cannot be false".

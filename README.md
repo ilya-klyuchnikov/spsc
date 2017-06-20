@@ -8,8 +8,8 @@ the source program. The simplification is achieved by removing certain
 "redundant" actions from the source program.
 
 The goal of the project is to implement in
-[Scala](http://www.scala-lang.org) a [positive
-supercompiler](http://sites.google.com/site/keldyshscp/Home/positive-supercompilers)
+[Scala](http://www.scala-lang.org) a
+[positive supercompiler](http://sites.google.com/site/keldyshscp/Home/positive-supercompilers)
 that is very close to the one described in papers by M.H.Sørensen,
 R.Glück, and N.D.Jones.
 
@@ -54,4 +54,3 @@ See [The Table of Contents](docs/README.md).
 [SPSC: a Simple Supercompiler in Scala](https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/spsc/Klyuchnikov__Romanenko__SPSC_a_Simple_Supercompiler_in_Scala.pdf)
 is accepted for
 [PU’09](http://psi.nsc.ru/psi09/p_understanding/index).
-

@@ -1,6 +1,8 @@
-See also: SampleMemberFirstArg, SampleMember.
+See also: [SampleMemberFirstArg](SampleMemberFirstArg.md),
+[SampleMember](SampleMember.md).
 
-## Input code ##
+## Input code
+
 ```
 eq(Z, y) = eqZ(y);
 eq(S(x), y) = eqS(y, x);
@@ -20,12 +22,13 @@ member(x, ys) = memberSel(ys, x);
 memberZSZ(x) = member(x, Cons(Z, Cons(S(Z), Nil)));
 ```
 
-## Start function ##
+## Start function
+
 ```
 memberZSZ
 ```
 
-## Supercompiled code ##
+## Supercompiled code
 
 ```
 memberEq1(Z()) = True();
@@ -36,7 +39,7 @@ memberEq2(S(a)) = False();
 memberZSZ(a) = memberEq1(a);
 ```
 
-## Notes ##
+## Notes
 
 `member(x, list)` returns `True`, if `x` appears in the list `list`,
 and `False` otherwise.
@@ -44,6 +47,9 @@ and `False` otherwise.
 `memberZSZ(x)` returns `True`, if `x` appears in the list consisting of `Z` and `S(Z)`,
 and `False` otherwise.
 
-Upon supercompiling the source program, we get a version of `member` "specialized" with respect to the value of its second argument. Besides, the target program has the structure that is "simpler" than that of the source program. The source program containes
-recursive function definitions, while there is no recursion in the target program.
-(Or, in more "imperative" terms, there is no "loops".)
+Upon supercompiling the source program, we get a version of `member` 
+"specialized" with respect to the value of its second argument. Besides, the 
+target program has the structure that is "simpler" than that of the source 
+program. The source program containes recursive function definitions, while 
+there is no recursion in the target program. (Or, in more "imperative" terms, 
+there is no "loops".)

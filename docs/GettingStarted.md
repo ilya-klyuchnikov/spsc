@@ -1,8 +1,11 @@
-# Getting Started with SPSC #
+# Getting Started with SPSC
 
-**SPSC** stands for _A Small Positive Supercompiler in Scala_. In order to use SPSC you need to have Scala installed. Download and install Scala from the [Scala home page](http://www.scala-lang.org). Download **spsc\_beta.jar** from Downloads section.
+**SPSC** stands for _A Small Positive Supercompiler in Scala_. In order to use 
+SPSC you need to have Scala installed. Download and install Scala from the 
+[Scala home page](http://www.scala-lang.org). Download **spsc\_beta.jar** from 
+Downloads section.
 
-## Interpreter ##
+## Interpreter
 
 You can play with Small Language interpreter in Scala shell:
 
@@ -47,9 +50,10 @@ example:
 scala -cp spsc_alpha.jar spsc.InterpreterApp -i samples/test.sl -e "test19(Cons(Nil,Nil),Nil)"
 ```
 
-## Supercompiler ##
+## Supercompiler
 
-Supercompiler takes input program and name of f-function to be supercompiled and produces partial process tree (in SVG format) and residual program.
+Supercompiler takes input program and name of f-function to be supercompiled and 
+produces partial process tree (in SVG format) and residual program.
 
 ```
 usage: spcs.SuperCompilerApp -i input_file -f function_name -t tree_output_file -p program_output_file

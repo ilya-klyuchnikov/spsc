@@ -1,12 +1,12 @@
-# The Language the supercompiler deals with #
+# The Language the supercompiler deals with
 
-## A Simple Lazy First-Order Language (SLL) ##
+## A Simple Lazy First-Order Language (SLL)
 
 Our supercompiler deals with programs written in a simple first-order
 functional language (SLL). The intended operational semantics of the language
 is normal-order graph reduction to weak head normal form.
 
-## The lexical structure of SLL ##
+## The lexical structure of SLL
 
 Constructor names, function names and variables are represented by identifiers.
 
@@ -18,7 +18,7 @@ A function name or a variable must start with a small letter.
 A constructor name must start with a capital letter.
 
 
-## The syntax of programs ##
+## The syntax of programs
 
 In the following {**A**} means the construct **A** repeated zero or more times,
 and [**A**] means the construct **A** is optional.
@@ -66,11 +66,12 @@ of a rule be present in its left side.
 In a program, all occurrences of a constructor, an f-function or a g-function
 must have the same arity.
 
-Note that if a constructor is a zero-arity one the parentheses can be omitted: `B()` and `B` are equivalent.
+Note that if a constructor is a zero-arity one the parentheses can be omitted:
+ `B()` and `B` are equivalent.
 
-## Examples ##
+## Examples
 
-### Appending lists ###
+### Appending lists
 
 In the following program, the g-function `Append` appends 2 lists, and
 the f-function `Append3` appends 3 lists.
@@ -82,7 +83,7 @@ append(Cons(u, us), vs) = Cons(u, append(us, vs));
 append3(xs, ys, zs) = append(append(xs, ys), zs);
 ```
 
-### Testing natural numbers for equality ###
+### Testing natural numbers for equality
 
 Supposing that the natural numbers are represented in unary system
 (Z represents zero, and S(n) the number n+1), the function `eq`
@@ -102,7 +103,7 @@ Note that SLL doesn't allow rules like
 eq(S(x), S(y)) = eq(x, y);
 ```
 
-### A program that exploits the lazyness of SLL ###
+### A program that exploits the lazyness of SLL
 
 The following program defines the function `member(x, ys)` that
 tests that the number `x` appears in the list `ys`.
@@ -131,16 +132,19 @@ and(x, y) = if(x, y, False);
 member(x, list) = and(not(null(list)), or(eq(x, head(list)), member(x, tail(list))));
 ```
 
-## Notes ##
+## Notes
 
-### Calls to undefined functions ###
+### Calls to undefined functions
 
 As strange as it may seem, a program is allowed to contain calls to undefined functions, on condition that all calls to an undefined function have the same arity.
 
-### Rationale ###
+### Rationale
 
-Partial process tree may have a leaf with label `g(C(...), ...)`, despite the fact that
-there is no rule in the definition of `g` corresponding to `c`. This means that
-an attempt to evaluate such a call would result in abnormal program termination. However, since the semantics of the language is lazy, such a call may never be evaluated.
+Partial process tree may have a leaf with label `g(C(...), ...)`, despite the 
+fact that there is no rule in the definition of `g` corresponding to `c`. This 
+means that an attempt to evaluate such a call would result in abnormal program 
+termination. However, since the semantics of the language is lazy, such a call 
+may never be evaluated.
 
-For this reason spsc sometimes generates calls to g-functions whose domain is empty. Technically, a definition of such a function has zero rules.
+For this reason spsc sometimes generates calls to g-functions whose domain is 
+empty. Technically, a definition of such a function has zero rules.
